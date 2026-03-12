@@ -28,7 +28,7 @@
 
 把电脑的 IP 地址，设置为和开发板同一个网段的地址。
 
-打开：设置 | 网络。找到 USB 网口对应的网络适配器，修改 IP 地址的相关设置。
+打开：设置 \| 网络。找到 USB 网口对应的网络适配器，修改 IP 地址的相关设置。
 
 - 设置 [DHCP]：手动
 - 设置 [IPV4]：ON
@@ -88,8 +88,9 @@ ssh root@192.168.137.100
 
 当输入正确密码后，就可以登录开发板，并看到如下信息。
 
-~ % ssh HwHiAiUser@192.168.137.100
-HwHiAiUser@192.168.137.100's password: 
+```bash
+~ % ssh root@192.168.137.100
+root@192.168.137.100's password: 
     _                                _             _               _     _  _
    / \    ___   ___  ___  _ __    __| |         __| |  ___ __   __| | __(_)| |_
   / _ \  / __| / __|/ _ \| '_ \  / _` | _____  / _` | / _ \\ \ / /| |/ /| || __|
@@ -120,15 +121,15 @@ individual files in /usr/share/doc/*/copyright.
 Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
 applicable law.
 
-(base) HwHiAiUser@davinci-mini:~$                 
-        
-也可以通过开发板的 root 账号登录开发板。命令是
-ssh root@192.168.137.100
-密码也是
-Mind@123
+(base) root@davinci-mini:~#                 
+```
 
- 2、运行开发板的预置样例
- 2.1 启动开发板的预置样例
+> 也可以通过开发板的 HwHiAiUser 账号登录开发板。命令是 `ssh root@192.168.137.100`，初始密码也是 `Mind@123`。
+
+## 运行开发板的预置样例
+
+### 启动开发板的预置样例
+
 参考 1、SSH登录开发板，用开发板的 HwHiAiUser 账号，或者 root 账号，ssh 方式登录开发板。
 
 然后执行 cd 命令，切换到开发板的 /home/HwHiAiUser/samples/notebooks 目录。
@@ -142,7 +143,7 @@ Mind@123
 
 可看到如下信息，表示开发板预置样例启动了。
 
-
+```bash
 [I 2025-03-17 20:14:01.452 ServerApp] Package jupyterlab took 0.0001s to import
 [I 2025-03-17 20:14:01.529 ServerApp] Package jupyter_lsp took 0.0751s to import
 [W 2025-03-17 20:14:01.530 ServerApp] A `_jupyter_server_extension_points` function was not found in jupyter_lsp. Instead, a `_jupyter_server_extension_paths` function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
@@ -172,7 +173,7 @@ file:///home/HwHiAiUser/.local/share/jupyter/runtime/jpserver-38492-open.html
 Or copy and paste one of these URLs:
 http://192.168.137.100:8888/lab?token=696173ee0cbed331a0e360bf5a2b851cdf81dde0850fce7d
 http://127.0.0.1:8888/lab?token=696173ee0cbed331a0e360bf5a2b851cdf81dde0850fce7d
-   
+```   
         
 
 将 http://192.168.137.100:8888/lab?token=696173ee0cbed331a0e360bf5a2b851cdf81dde0850fce7d 那行，复制到本地电脑的浏览器中。（token后面的取值，会每次不一样，不要复制此处的样例）
