@@ -6,23 +6,40 @@
 
 Atlas 200I DK A2 开发者套件（以下简称开发者套件）是一款高性能的AI开发者套件，可提供8TOPS INT8的计算能力，可以实现图像、视频等多种数据分析与推理计算，可广泛用于教育、机器人、无人机等场景。开发者套件就是不带显示器、不带键盘鼠标、没有机箱、有AI算力的小计算机。产品规格如下：
 
-- 处理器：
-    - 1个NPU：DaVinciV300 AI core（主频500MHz）
-    - 4个CPU：TAISHANV200M处理器核（主频1.0GHz）
-- AI算力：
-    - 半精度（FP16）：4 TFLOPS
-    - 整数精度（INT8）：8 TOPS
-- 内存：4GB
+**处理器：** 1个NPU + 4个CPU
+
+- 1个NPU：DaVinciV300 AI core（主频500MHz）
+- 4个CPU：TAISHANV200M处理器核（主频1.0GHz）
+
+**AI算力：** 4 TFLOPS
+
+- 半精度（FP16）：4 TFLOPS
+- 整数精度（INT8）：8 TOPS
+
+**内存：** 4GB
 
 外观如下：
 
-![开发者套件外观1](./huawei-dk-200idka2.assets/200idka2-1.png)
 ![开发者套件外观2](./huawei-dk-200idka2.assets/200idka2.png)
+![开发者套件外观1](./huawei-dk-200idka2.assets/200idka2-1.png)
 
 更多信息和文档请参考：
 
 - [文档-Atlas 200I DK A2开发者套件↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/index/index.html)
 - [开发者套件主页↗](https://www.hiascend.com/hardware/developer-kit-a2)
+
+---
+
+## SSH登录开发板
+
+参考官网 [快速开始↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/qs) ，描述如何登录开发板。初次使用开发者套件的用户可以参见如下步骤完成开发者套件的启动使用：
+
+- **准备硬件。** 准备烧录镜像和登录开发者套件进行推理业务的配件，如PC、SD卡、读卡器、数据线等。
+- **制卡。** 将包含OS、CANN软件的镜像烧录到SD卡，用于启动运行开发者套件。
+- **连接启动开发者套件。** 将烧录镜像后的SD卡插入开发者套件，上电运行开发者套件。
+- **登录开发者套件。** 通过本机显示或者远程登录的方式登录开发者套件，即可在开发者套件运行推理业务。
+
+可外借的开发者套件，已经烧录好镜像，插上电源 + 连接网线就可以 SSH 登录开发板。如想尝试重新烧录 SD 卡的同学，可参考官网 [准备硬件↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/qs/qs_0001.html) 和 [Windows系统制卡↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/qs/qs_0005.html)。读卡器等可联系老师借用。
 
 ---
 
@@ -46,7 +63,7 @@ Atlas 200I DK A2 开发者套件（以下简称开发者套件）是一款高性
 - 设置 [DHCP]：手动
 - 设置 [IPV4]：ON
 - 设置 [IP]：192.168.137.xxx。 xxx 取值说明如下：
-    ```markdown
+    ```txt
     0：不可用，因为 0 是网络号。
     1 ~ 99：可用。比如，可以将电脑的 IP 地址设置为 192.168.137.99。
     100：不可用，因为被开发板占用了。
@@ -54,7 +71,7 @@ Atlas 200I DK A2 开发者套件（以下简称开发者套件）是一款高性
     255：不可用，因为 255 是广播地址。
     ```
 - 设置 [子网掩码]。设置长度或掩码，视操作系统版本不同而不同。
-    ```markdown
+    ```bash
     设置 [子网掩码长度]： 24
     或者 [子网掩码]： 255.255.255.0
     ```
