@@ -1,12 +1,30 @@
-# 华为开发者套件简介
+# 华为开发者套件简要说明
 
-- 官网名称：开发者套件
-- 官网型号：Atlas 200I DK A2
-- 其他称呼：昇腾开发板，小藤
-- 官网：[“小藤”开发者套件↗](https://www.hiascend.com/zh/hardware/developer-kit-a2)
+`更新-260314` \| `发布-260312`
 
-就是不带显示器、不带键盘鼠标、没有机箱、有AI算力的小计算机。巴掌大小，长相如下：
-![昇腾开发板](./huawei-dk-200idka2.assets/200idka2.png)
+## 开发者套件简介
+
+Atlas 200I DK A2 开发者套件（以下简称开发者套件）是一款高性能的AI开发者套件，可提供8TOPS INT8的计算能力，可以实现图像、视频等多种数据分析与推理计算，可广泛用于教育、机器人、无人机等场景。开发者套件就是不带显示器、不带键盘鼠标、没有机箱、有AI算力的小计算机。产品规格如下：
+
+- 处理器：
+    - 1个NPU：DaVinciV300 AI core（主频500MHz）
+    - 4个CPU：TAISHANV200M处理器核（主频1.0GHz）
+- AI算力：
+    - 半精度（FP16）：4 TFLOPS
+    - 整数精度（INT8）：8 TOPS
+- 内存：4GB
+
+外观如下：
+
+![开发者套件外观1](./huawei-dk-200idka2.assets/200idka2-1.png)
+![开发者套件外观2](./huawei-dk-200idka2.assets/200idka2.png)
+
+更多信息和文档请参考：
+
+- [文档-Atlas 200I DK A2开发者套件↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/index/index.html)
+- [开发者套件主页↗](https://www.hiascend.com/hardware/developer-kit-a2)
+
+---
 
 ## 1、SSH登录开发板
 
