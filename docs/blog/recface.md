@@ -2,7 +2,9 @@
 layout: default
 ---
 
-# 人脸识别项目（未完待续）
+# 人脸识别项目
+
+`tbc未完待续`
 
 `更新-260316` \| `发布-260316`
 
@@ -15,6 +17,8 @@ layout: default
 - **刷脸开门**：待项目逐步成熟后，替代当前部分房间的密码开门、钥匙开门。能力要持平商业产品，价格要有竞争力。
 - **刷脸打卡**：会议等签到可使用刷脸来打卡。
 - ……（更多用途待畅想）
+
+<!-- ----------------------------------------------------------------------- -->
 
 ## 思考如何实现
 
@@ -45,11 +49,9 @@ AI 给了 3 个模型：
 
 继续和AI交流，比如用一个模型，……。AI推荐 MobileFaceNet。在上网搜索，得到一个开源项目：[夜雨飘零/Pytorch-MobileFaceNet↗]。
 
-## 体验人脸识别
+## 在本地电脑体验人脸识别
 
-[夜雨飘零/Pytorch-MobileFaceNet↗] 貌似可以直接运行。
-
-在 macOS 笔记本上启动 **终端**，新建空目录，在空目录中执行 git clone 下载源码：
+[夜雨飘零/Pytorch-MobileFaceNet↗] 貌似可以直接运行。在 macOS 笔记本上启动 **终端**，新建空目录，在空目录中执行 git clone 下载源码：
 
 ```bash
 mkdir ailab
@@ -60,8 +62,7 @@ git clone git@gitee.com:yeyupiaoling/Pytorch-MobileFaceNet.git
 主要做了一下工作，可在 macOS 笔记本上跑通：
 
 - 激活笔记本上的 Python 虚拟环境，尝试运行，并安装缺少的 Python 包。
-
-- 修改 GPU 相关为 CPU。和 AI 交流后得到的主要修改有：
+- 修改 GPU 相关为 CPU，因为 macOS 笔记本不带 GPU。和 AI 交流后得到的主要修改有：
 
     ```python
 # self.device = torch.device("cuda")
@@ -75,13 +76,26 @@ self.model = torch.jit.load(
 
     > 有多处类似地方，要做相应修改。
 
+
+
 执行以下命令得到推理结果：
 
 ```bash
 python3 infer.py --image_path=dataset/test.jpg
 ```
-
 ![infer_result](./recface.assets/rf1s.jpg)
+
+> 弹出的图片窗口，可按空格后关闭。
+
+<!-- ----------------------------------------------------------------------- -->
+## 在开发板上体验人脸识别
+
+在开发板上新建用户，从零开始。
+
+- 先在本地电脑的**终端** App中执行 `ssh root@192.168.137.100` 登录开发板，初始密码是 `Mind@123`。
+- 登录后在**终端**（虽然终端是在本地电脑上，但已远程登录开发板，可理解为在开发板上了）以 `root` 用户执行 `adduser --home /home/gdv2 --shell /bin/bash gdv2` 命令新建用户。
+    > 如不确定当前是否为 `root` 用户，可执行命令 `whoami`。如显示 root 则OK。如不是，可执行命令 `su - root` 切换到 root 用户，root 用户的初始默认密码是 `Mind@123`。
+    > 新建用户的命令中， gdv2 是用户名，可以是其他取值，比如 zhangsan。则命令相应变为 `adduser --home /home/zhangsan --shell /bin/bash zhangsan`。执行 `adduser --help` 可获得帮助，尤其是记不住的命令行相关参数。
 
 <!--  -->
 
