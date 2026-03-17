@@ -4,9 +4,9 @@ layout: default
 
 # 人脸识别项目
 
-`tbc未完待续`
+<!-- `tbc未完待续` -->
 
-`更新-260316` \| `发布-260316`
+`更新-260317` \| `发布-260316`
 
 从一个想法到实现的过程，供参考。
 
@@ -49,7 +49,7 @@ AI 给了 3 个模型：
 
 继续和AI交流，比如用一个模型，……。AI推荐 MobileFaceNet。在上网搜索，得到一个开源项目：[夜雨飘零/Pytorch-MobileFaceNet↗]。
 
-## 在本地电脑体验人脸识别
+## 本地电脑体验
 
 [夜雨飘零/Pytorch-MobileFaceNet↗] 貌似可以直接运行。在 macOS 笔记本上启动 **终端**，新建空目录，在空目录中执行 git clone 下载源码：
 
@@ -92,7 +92,7 @@ python3 infer.py --image_path=dataset/test.jpg
 
 
 <!-- ----------------------------------------------------------------------- -->
-## 在开发板上体验人脸识别
+## 开发板体验
 
 ### 新建用户
 
@@ -128,7 +128,15 @@ su - gdv2
 
 开发板上已安装 conda。用 conda 创建新的虚拟环境，用于体验人脸识别。新建的虚拟环境可少一些这样那样环境相关的问题，同时不干扰其他已正常运行的其他项目，建议要新建虚拟环境来体验人脸识别。
 
-- 新建虚拟环境。执行以下命令：
+- **连外网**。有多种方式：
+
+    开发板先要连接外网。创建虚拟环境、安装 Python 包，都需要访问外网。
+    
+    可共享本地电脑的网络（可以上外网的）给开发板，详情可参考：[通过PC共享网络联网（Windows）↗]。亲测可行。如不大行就重新操作一次即可。
+
+    还可以再插一根可以上外网的网线，到开发板的上下排列的2个网口的下面那个网口。按开发板默认镜像的设置，下面那个网口是 DHCP（自动分配网址）。插上网线后，可以在**终端**执行 `ifconfig | grep 172`（通常校园网的IP地址是 172.xxx.xxx.xxx），如果能看到 172 开头的 IP 地址，则表示连接成功啦。
+
+- **新建虚拟环境**。执行以下命令：
     
     ```bash
 conda create -n mface python=3.9
@@ -138,7 +146,7 @@ conda create -n mface python=3.9
 
     > 和AI交流，建议创建 Python 3.9 环境。
 
-- 激活虚拟环境。执行以下命令：
+- **激活虚拟环境**。执行以下命令：
 
     ```bash
 conda activate mface
@@ -152,13 +160,64 @@ conda activate mface
 
     > 激活后命令行提示符行首会出现`(mface)`字样，表示当前已在 mface 虚拟环境中。
 
+- **安装必要的 Python 包**。执行以下命令：
+
+    ```bash
+pip3 install opencv-python torch torchvision scikit-image tqdm scikit-learn
+    ```
+
+    > 确保是在 mface 环境中（即行提示符行首有`(mface)`字样）安装这些 Python 包。
+
+### 体验人脸识别
+
+执行以下命令，下载源代码：
+
+```bash
+mkdir ailab # 新建目录，名称随意
+cd ailab
+git clone git@gitee.com:yeyupiaoling/Pytorch-MobileFaceNet.git
+```
+
+对源代码做修改：
+
+- 修改 GPU 相关为 CPU，因为开发板没有 GPU（对应的是 NPU）。如何修改请参考 [本地电脑体验](#本地电脑体验)。
+- 和AI交流，将 infer.py 中最后的 `predictor.draw_face(args.image_path, boxes, names)` 改成写文件。因为 ssh 远程登录开发板无法如本地电脑体验那样显示结果图片窗口。
+
+执行以下命令体验人脸识别：
+
+```bash
+python3 infer.py --image_path=dataset/test.jpg
+```
+
+> 可用本地电脑上的 MobaXterm（仅支持 Windows） 软件打开结果图片文件查看。或者使用 `scp` 命令将结果图片文件复制到本地电脑后查看。
+
+还可以做以下操作体验更多：
+
+- 在开源项目的目录 `face_db` 中新增一张图片，比如 `张凌赫.jpg`。
+- 再找一张不同的张凌赫图片，放在开源项目的目录 `dataset` 中，比如 `zhanglinghe.jpg`。
+- 执行命令 `python3 infer.py --image_path=dataset/zhanglinghe.jpg` 并查看识别结果。
+- 再找更多照片，但这些照片的人不在 `face_db` 中，运行推理程序，查看识别结果（期望结果是 unknown）。 
+
+<!-- ----------------------------------------------------------------------- -->
+
+## 使用 NPU 推理
+
+[开发板体验](#开发板体验) 只是把开发板当做普通计算机使用。还要进一步用到开发板的 AI 算力（NPU），以加快推理（识别）速度。
+
+可参考以下资料，对上述程序做修改，使用到开发板的 NPU 算力做推理：
+
+- [昇腾样例代码↗](https://gitee.com/ascend/samples)。可参考 inference、python、cplusplus 等子目录中的样例。
+- [AscendCL应用开发入门↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Getting%20Started%20with%20Application%20Development/gswaad/)
+- [AscendCL应用开发指南(Python)↗](https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Application%20Development%20Guide/aadgp/aclpythondevg_0000.html)
+
 
 <!--  -->
 
 [夜雨飘零/Pytorch-MobileFaceNet↗]: https://gitee.com/yeyupiaoling/Pytorch-MobileFaceNet
+[通过PC共享网络联网（Windows）↗]: https://www.hiascend.com/document/detail/zh/Atlas200IDKA2DeveloperKit/23.0.RC2/Hardware%20Interfaces/hiug/hiug_0010.html
 
 <!--  -->
 
-[^1]: [华为开发者套件简介](../ug/huawei-dk-200idka2.md)
+[^1]: [华为开发者套件简介](../ug/huawei-dk-200idka2)
 
 
