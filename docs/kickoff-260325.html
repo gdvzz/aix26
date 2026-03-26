@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>2026 AI+X 大赛 | 江南大学 · 启动会</title>
+    <!-- 引入 SF Pro 风格字体，Inter 作为替代 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: #f5f5f7;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(80, 120, 255, 0.08), transparent 60%),
+                        radial-gradient(circle at 30% 80%, rgba(160, 100, 255, 0.06), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.15, 1), visibility 0.7s;
+            overflow-y: auto;
+            padding: 2rem 3rem;
+            scrollbar-width: thin;
+            scrollbar-color: #4a4a6a #1c1c1e;
+        }
+        .slide::-webkit-scrollbar {
+            width: 5px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: #1c1c1e;
+            border-radius: 10px;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: #3a3a5a;
+            border-radius: 10px;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        .slide-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: rgba(20, 20, 30, 0.65);
+            backdrop-filter: blur(30px);
+            border-radius: 3rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.05);
+            transition: transform 0.3s ease;
+            border: 0.5px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFFFFF, #b2d9ff, #9b87f5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+        }
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin: 1.2rem 0 1rem 0;
+            display: inline-block;
+            background: linear-gradient(120deg, #e8edff, #c0d4ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-left: 4px solid #0a84ff;
+            padding-left: 1rem;
+        }
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem 0;
+            color: #e5e9ff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .hero-sub {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #a1a1b9;
+            margin-top: 0.25rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .card {
+            background: rgba(28, 28, 35, 0.7);
+            border-radius: 1.8rem;
+            padding: 1.5rem 1.8rem;
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(255,255,255,0.08);
+            transition: all 0.25s;
+        }
+        .card:hover {
+            background: rgba(40, 40, 50, 0.8);
+            border-color: rgba(10, 132, 255, 0.4);
+        }
+
+        .prize-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        .prize-table th, .prize-table td {
+            padding: 1rem 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        .prize-table th {
+            font-weight: 600;
+            color: #8e9dff;
+            background: transparent;
+        }
+        .badge-light {
+            background: #0a84ff20;
+            border-radius: 30px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            color: #66b0ff;
+        }
+        .timeline-modern {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 1.8rem 0;
+        }
+        .timeline-step {
+            flex: 1;
+            background: rgba(0,0,0,0.35);
+            border-radius: 1.5rem;
+            padding: 1rem 1rem;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            border-top: 2px solid #0a84ff;
+        }
+        .timeline-step .date {
+            font-weight: 700;
+            color: #ff9f4a;
+            font-size: 1rem;
+        }
+
+        .devboard-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .board-tile {
+            background: rgba(12, 12, 18, 0.8);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            flex: 1 1 200px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+        .board-tile:hover {
+            border-color: #0a84ff;
+            transform: translateY(-3px);
+            background: rgba(30, 30, 45, 0.9);
+        }
+        .board-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        .board-image svg {
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        .board-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.5rem 0 0.2rem;
+        }
+        .board-desc {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.6rem 0;
+        }
+        .footer-note {
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 2rem;
+            color: #8e8e98;
+            border-top: 0.5px solid rgba(255,255,255,0.1);
+            padding-top: 1.2rem;
+        }
+        .highlight {
+            color: #ff9f4a;
+            font-weight: 500;
+        }
+        .link-mock {
+            color: #0a84ff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(10,132,255,0.4);
+        }
+        .btn-nav {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            display: flex;
+            gap: 14px;
+            z-index: 40;
+        }
+        .nav-btn {
+            background: rgba(30,30,40,0.85);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(255,255,255,0.2);
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: 0.2s;
+            color: white;
+        }
+        .nav-btn:hover {
+            background: #0a84ff;
+            transform: scale(1.02);
+        }
+        .page-indicator {
+            position: fixed;
+            bottom: 36px;
+            left: 28px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(16px);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            z-index: 40;
+            border: 0.5px solid rgba(255,255,255,0.2);
+        }
+        @media (max-width: 800px) {
+            .slide { padding: 1.2rem; }
+            .slide-content { padding: 1.5rem; }
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 1.6rem; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .timeline-modern { flex-direction: column; }
+            .devboard-stack { flex-direction: column; align-items: stretch; }
+        }
+        .quote-text {
+            font-style: normal;
+            border-left: 2px solid #0a84ff;
+            padding-left: 1.2rem;
+            margin: 1rem 0;
+            color: #bfc7f0;
+        }
+        .small-badge {
+            background: #0a84ff30;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+        }
+        .credit-warning {
+            background: rgba(10,132,255,0.12);
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .spec-item {
+            background: rgba(0,0,0,0.4);
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            text-align: center;
+        }
+        .code-block {
+            background: #0c0c12;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin: 0.8rem 0;
+            border-left: 3px solid #0a84ff;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="slides-container">
+    <!-- 幻灯片1: 封面 -->
+    <div class="slide active" id="slide1">
+        <div class="slide-content" style="text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 80vh;">
+            <div class="small-badge" style="display: inline-block; margin: 0 auto 1rem auto; width: fit-content;">江南大学 · 人工智能与计算机学院</div>
+            <h1 style="font-size: 5rem;">2026 AI+X 大赛</h1>
+            <p style="font-size: 1.7rem; font-weight: 400; letter-spacing: -0.2px;">AI 赋能 · 交叉融合</p>
+            <div style="margin: 1.5rem 0;">
+                <i class="fas fa-microchip" style="font-size: 2.2rem; margin: 0 0.6rem; opacity: 0.8;"></i>
+                <i class="fas fa-robot" style="font-size: 2.2rem; margin: 0 0.6rem; opacity: 0.8;"></i>
+                <i class="fas fa-cogs" style="font-size: 2.2rem; margin: 0 0.6rem; opacity: 0.8;"></i>
+            </div>
+            <p class="hero-sub">昇腾 · 鲲鹏 · Jetson 前沿硬件 | 跨学科共创未来</p>
+            <div style="margin-top: 2rem;">
+                <a href="https://mp.weixin.qq.com/s/Gf6jtCrXbSpbcMEIDG1FYQ" target="_blank" class="link-mock" style="font-size: 0.9rem;"><i class="fab fa-weixin"></i> 官微推文：首届 AI+X 大赛启幕！邀你用 AI 定义新可能 ↗</a>
+            </div>
+            <div class="footer-note" style="border: none; margin-top: 2rem;">
+                <i class="fas fa-arrow-down"></i> 键盘 ← → 或点击两侧按钮探索
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片2: 大赛简介 + 参赛对象 + 参赛要求 -->
+    <div class="slide" id="slide2">
+        <div class="slide-content">
+            <h2><i class="fas fa-bolt"></i> 大赛简介</h2>
+            <p style="margin-bottom: 1rem;">为全面提升学生科技创新与工程实践能力，深化人工智能与多学科交叉融合，<strong>人工智能与计算机学院</strong>举办 <strong>2026 “AI+X” 大赛</strong>。主题 <span class="highlight">“AI赋能，交叉融合”</span>，依托昇腾、鲲鹏、Jetson等前沿AI硬件，鼓励打造创新、实用、落地的解决方案。以赛促学、以赛促创、以赛促练，搭建跨学科交流平台，让不同专业学子碰撞灵感、协同共创。</p>
+            <div class="quote-text">“每一次跨界的尝试都在拓展认知的边界，每一个落地的项目都在积蓄改变的力量。快来参赛吧！”</div>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3><i class="fas fa-users-viewfinder"></i> 参赛对象</h3>
+                    <p>人工智能与计算机学院（软件学院）全体在校学生 & 全校各学院对AI感兴趣、具备科创基础的同学。</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-clipboard-list"></i> 参赛要求</h3>
+                    <p>✔ 基于大赛提供开发板（昇腾/鲲鹏/Jetson）实现核心功能。<br>
+                    ✔ 具有明确的“AI+X”应用场景，体现AI与具体领域结合。<br>
+                    ✔ 不得侵犯他人知识产权。</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 0.2rem;">
+                <h3><i class="fas fa-user-friends"></i> 组队要求</h3>
+                <p>每队不超过3人（含队长），鼓励邀请指导教师，跨专业组队更佳。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片3: 奖项权益 -->
+    <div class="slide" id="slide3">
+        <div class="slide-content">
+            <h2><i class="fas fa-medal"></i> 奖项权益</h2>
+            <p>金、银、铜奖总数 ≤ 参赛队伍总数30%（且不少于6支）。</p>
+            <table class="prize-table">
+                <thead><tr><th>奖项</th><th>数量</th><th>奖品（每人）</th><th>创新创业学分*</th><th>第二课堂学时*</th></thead>
+                <tbody>
+                    <tr><td style="font-weight:700;">🏆 金奖</td><td>2支</td><td>价值300元奖品</td><td>0.5分</td><td>8学时</td></tr>
+                    <tr><td style="font-weight:700;">🥈 银奖</td><td>4支</td><td>价值200元奖品</td><td>0.5分</td><td><strong class="highlight">6学时</strong></td></tr>
+                    <tr><td style="font-weight:700;">🥉 铜奖</td><td>6支</td><td>价值100元奖品</td><td>0.5分</td><td><strong class="highlight">4学时</strong></td></tr>
+                    <tr><td>✨ 优秀奖</td><td>若干</td><td>价值50元奖品</td><td>—</td><td>2学时</td></tr>
+                </tbody>
+            </table>
+            <div class="credit-warning">
+                <i class="fas fa-info-circle"></i> *创新创业学分与第二课堂学时仅适用于人工智能与计算机学院（软件学院）参赛队伍，其他学院请自行确认认定政策；获奖证书及奖品覆盖所有获奖队伍。
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片4: 大赛日程 + 提交要求 -->
+    <div class="slide" id="slide4">
+        <div class="slide-content">
+            <h2><i class="fas fa-calendar-alt"></i> 大赛日程</h2>
+            <div class="timeline-modern">
+                <div class="timeline-step"><div class="date">3月中旬</div>大赛启动会<br>规则/开发板培训</div>
+                <div class="timeline-step"><div class="date">3月-4月中旬</div>报名组队<br>开发调测</div>
+                <div class="timeline-step"><div class="date">4月中旬</div>中期检查<br>教师指导</div>
+                <div class="timeline-step"><div class="date">4月-5月中旬</div>作品优化完善</div>
+                <div class="timeline-step"><div class="date">5月中旬</div>路演答辩<br>颁奖典礼</div>
+            </div>
+            <h2><i class="fas fa-file-export"></i> 提交要求</h2>
+            <div class="grid-2col" style="margin-top: 0.5rem;">
+                <div class="card"><i class="fas fa-chalkboard-user"></i> <strong>作品介绍PPT</strong><br>创作背景、痛点、与硬件结合、技术创新亮点等</div>
+                <div class="card"><i class="fab fa-github"></i> <strong>源代码</strong><br>完整仓库 + 良好注释</div>
+                <div class="card"><i class="fas fa-drafting-compass"></i> <strong>设计文档</strong><br>系统架构/模块划分/接口定义</div>
+                <div class="card"><i class="fas fa-video"></i> <strong>演示视频（可选）</strong><br>展示实际运行效果与交互体验</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片5: 评选标准 + 加分项 + 技术支持 -->
+    <div class="slide" id="slide5">
+        <div class="slide-content">
+            <h2><i class="fas fa-chart-line"></i> 评选标准</h2>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3><i class="fas fa-cubes"></i> 方案完整</h3><p>作品方案完整，互动体验良好。</p>
+                    <h3 style="margin-top: 1rem;"><i class="fas fa-microchip"></i> 技术优势</h3><p>充分发挥AI硬件平台能力，提升整体竞争力。</p>
+                    <h3 style="margin-top: 1rem;"><i class="fas fa-chart-simple"></i> 方案价值</h3><p>明确市场需求与目标用户，成长前景广阔。</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-star"></i> 加分项</h3>
+                    <p><span class="highlight">✦ 技术创新：</span>突破性/原创性，符合AI趋势。<br>
+                    <span class="highlight">✦ 社会价值：</span>医疗/教育/环保/制造等民生痛点。<br>
+                    <span class="highlight">✦ AI辅助开发：</span>合理运用AI编程工具，提升研发效率。</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-headset"></i> 技术支持</h3>
+                <div class="icon-text"><i class="fas fa-phone-alt"></i> 董老师：13951031442（微信同号）</div>
+                <div class="icon-text"><i class="fab fa-qq"></i> 大赛QQ群：<strong class="highlight">1021629279</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片6: 开发板资源总览 (含图片) -->
+    <div class="slide" id="slide6">
+        <div class="slide-content">
+            <h2><i class="fas fa-boxes"></i> AI 开发板资源</h2>
+            <p>大赛免费提供以下硬件平台，助力创新落地：</p>
+            <div class="devboard-stack">
+                <div class="board-tile"><div class="board-image"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="25" width="70" height="50" rx="8" fill="url(#gradAscend)" stroke="#0a84ff" stroke-width="1.5"/><rect x="30" y="38" width="40" height="8" rx="2" fill="#e0e4ff"/><rect x="35" y="52" width="30" height="6" rx="1.5" fill="#b0c4ff"/><circle cx="50" cy="70" r="5" fill="#3a6ea5"/><defs><linearGradient id="gradAscend"><stop offset="0%" stop-color="#2a5f8a"/><stop offset="100%" stop-color="#103450"/></linearGradient></defs><text x="50" y="82" font-size="8" text-anchor="middle" fill="#9bbdff">昇腾</text></svg></div><div class="board-title">昇腾开发板</div><div class="board-desc">30套 · 可外借</div></div>
+                <div class="board-tile"><div class="board-image"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="25" width="70" height="50" rx="8" fill="url(#gradKun)" stroke="#2ecc71" stroke-width="1.5"/><path d="M35 42 L45 42 L45 52 L35 52Z" fill="#b0e0b0"/><path d="M55 42 L65 42 L65 52 L55 52Z" fill="#b0e0b0"/><rect x="40" y="58" width="20" height="6" rx="1.5" fill="#6fbf6f"/><defs><linearGradient id="gradKun"><stop offset="0%" stop-color="#2c6e2c"/><stop offset="100%" stop-color="#1b4d1b"/></linearGradient></defs><text x="50" y="82" font-size="8" text-anchor="middle" fill="#a3e0a3">鲲鹏</text></svg></div><div class="board-title">鲲鹏开发板</div><div class="board-desc">30套 · 可外借</div></div>
+                <div class="board-tile"><div class="board-image"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="25" width="70" height="50" rx="8" fill="url(#gradJet)" stroke="#76b900"/><rect x="28" y="38" width="44" height="10" rx="2" fill="#d4e6b0"/><circle cx="50" cy="60" r="6" fill="#5c8a2a"/><defs><linearGradient id="gradJet"><stop offset="0%" stop-color="#4a7023"/><stop offset="100%" stop-color="#2e4a15"/></linearGradient></defs><text x="50" y="82" font-size="7" text-anchor="middle" fill="#b5e377">Jetson ORIN</text></svg></div><div class="board-title">Jetson ORIN NX</div><div class="board-desc">30套 · 可外借</div></div>
+                <div class="board-tile"><div class="board-image"><svg viewBox="0 0 100 100" fill="none"><rect x="15" y="30" width="70" height="45" rx="8" fill="url(#gradArm)" stroke="#ffaa44"/><rect x="32" y="44" width="36" height="8" rx="2" fill="#ffd966"/><path d="M62 52 L72 48 L68 58Z" fill="#cc9933"/><path d="M38 52 L28 48 L32 58Z" fill="#cc9933"/><defs><linearGradient id="gradArm"><stop offset="0%" stop-color="#7a5c2c"/><stop offset="100%" stop-color="#4a3a1a"/></linearGradient></defs><text x="50" y="83" font-size="7" text-anchor="middle" fill="#ffcc77">+机械臂</text></svg></div><div class="board-title">Jetson + 机械臂</div><div class="board-desc">30套 · 学院B102使用</div></div>
+            </div>
+            <div class="card"><i class="fas fa-globe"></i> 官网：<a href="https://aix26.gdvzz.com/" target="_blank" class="link-mock">aix26.gdvzz.com</a> &nbsp;|&nbsp; <i class="fab fa-weixin"></i> <a href="https://mp.weixin.qq.com/s/Gf6jtCrXbSpbcMEIDG1FYQ" target="_blank" class="link-mock">官微推文</a></div>
+        </div>
+    </div>
+
+    <!-- 幻灯片7: 华为开发者套件 (Atlas 200I DK A2) 核心规格 -->
+    <div class="slide" id="slide7">
+        <div class="slide-content">
+            <h2><i class="fas fa-microchip"></i> 华为 Atlas 200I DK A2</h2>
+            <p class="hero-sub">高性能AI开发者套件 · 8TOPS INT8算力 · 专为教育/机器人/无人机打造</p>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-cpu"></i> 处理器<br>1 NPU + 4 CPU<br><span style="font-size:0.8rem;">DaVinciV300 + TAISHANV200M</span></div>
+                <div class="spec-item"><i class="fas fa-chart-line"></i> AI算力<br>4 TFLOPS (FP16)<br>8 TOPS (INT8)</div>
+                <div class="spec-item"><i class="fas fa-memory"></i> 内存<br>4GB LPDDR4X</div>
+                <div class="spec-item"><i class="fas fa-plug"></i> 接口<br>双网口 / USB / HDMI / Type-C</div>
+            </div>
+            <div class="card" style="margin-top: 0.5rem;">
+                <i class="fas fa-info-circle"></i> 开发者套件即不带显示器/键鼠、有AI算力的迷你计算机。已预装系统镜像，插电+网线即可SSH登录。
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片8: SSH登录开发板 - 准备与连接 -->
+    <div class="slide" id="slide8">
+        <div class="slide-content">
+            <h2><i class="fas fa-terminal"></i> SSH 登录开发板</h2>
+            <p>外借开发板已烧录镜像，仅需三步即可远程登录：</p>
+            <div class="timeline-modern" style="margin: 1rem 0;">
+                <div class="timeline-step"><div class="date">Step 1</div>网线连接<br>PC以太网口 ↔ 开发板上方网口</div>
+                <div class="timeline-step"><div class="date">Step 2</div>设置PC静态IP<br>192.168.137.222/24</div>
+                <div class="timeline-step"><div class="date">Step 3</div>SSH登录<br><code>ssh root@192.168.137.100</code><br>密码: <strong>Mind@123</strong></div>
+            </div>
+            <div class="code-block">
+                $ ping 192.168.137.100      # 测试连通性<br>
+                $ ssh root@192.168.137.100  # 登录开发板<br>
+                Password: Mind@123
+            </div>
+        </div>
+    </div>
+
+    <!-- 幻灯片9: 预置应用体验 (Jupyter Lab + 典型AI样例) -->
+    <div class="slide" id="slide9">
+        <div class="slide-content">
+            <h2><i class="fas fa-flask"></i> 体验预置 AI 应用</h2>
+            <p>镜像已预装 Jupyter Lab 及多种推理样例，快速上手AI开发：</p>
+            <div class="grid-2col" style="margin-top: 0.8rem;">
+                <div class="card"><i class="fas fa-eye"></i> <strong>目标检测</strong><br>图像/视频中的目标定位与分类</div>
+                <div class="card"><i class="fas fa-font"></i> <strong>OCR文字识别</strong><br>图像文字提取与分析</div>
+                <div class="card"><i class="fas fa-palette"></i> <strong>卡通图像生成</strong><br>GAN风格迁移</div>
+                <div class="card"><i class="fas fa-dna"></i> <strong>蛋白质分类/细胞分割</strong><br>生物影像AI分析</div>
+                <div class="card"><i class="fas fa-user-friends"></i> <strong>人像分割与背景替换</strong><br>视频会议/照片编辑</div>
+                <div class="card"><i class="fas fa-microphone-alt"></i> <strong>语音识别样例</strong><br>语音转文字</div>
+            </div>
+            <div class="code-block">
+                # 启动 Jupyter Lab<br>
+                cd /home/HwHiAiUser/samples/notebooks<br>
+                ./start_notebook.sh
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= 新增5页：人脸识别项目实践 ========= -->
+    <!-- 新幻灯片10: 项目想法与价值 -->
+    <div class="slide" id="slide10">
+        <div class="slide-content">
+            <h2><i class="fas fa-id-card"></i> 项目案例：人脸识别</h2>
+            <p class="hero-sub">从一个想法到实现的过程，完整展示AI项目开发路径</p>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3><i class="fas fa-lightbulb"></i> 项目想法</h3>
+                    <p>识别摄像头拍到的人脸是张三还是李四，后续可拓展为：<br>
+                    • 刷脸开门 —— 替代密码/钥匙<br>
+                    • 刷脸打卡 —— 会议签到<br>
+                    • 智能迎宾 —— 语音播报“你好！张三”</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chalkboard-user"></i> 核心功能</h3>
+                    <p>建立人脸库（存放若干人脸照片），与待识别图片比对，精准识别身份。项目目标：轻量化、可部署于华为开发板、支持10张以上人脸识别。</p>
+                </div>
+            </div>
+            <div class="credit-warning"><i class="fas fa-graduation-cap"></i> 参赛启发：从实际需求出发，定义你的“AI+X”场景，并完整落地。</div>
+        </div>
+    </div>
+
+    <!-- 新幻灯片11: 技术选型与模型探索 -->
+    <div class="slide" id="slide11">
+        <div class="slide-content">
+            <h2><i class="fas fa-code-branch"></i> 技术选型 · 模型探索</h2>
+            <p>与AI工具深度对话，逐步锁定适合开发板的轻量模型：</p>
+            <div class="timeline-modern" style="margin: 1rem 0;">
+                <div class="timeline-step"><div class="date">Step 1</div>AI推荐<br>SCRFD / VanillaCNN / SphereFace</div>
+                <div class="timeline-step"><div class="date">Step 2</div>调整方向<br>MobileFaceNet<br>轻量级人脸识别</div>
+                <div class="timeline-step"><div class="date">Step 3</div>开源项目<br>夜雨飘零/Pytorch-MobileFaceNet</div>
+                <div class="timeline-step"><div class="date">Step 4</div>本地验证<br>MacBook CPU运行成功</div>
+            </div>
+            <div class="code-block">
+                # 在本地笔记本上验证<br>
+                git clone git@gitee.com:yeyupiaoling/Pytorch-MobileFaceNet.git<br>
+                # 修改 device = "cpu"<br>
+                python3 infer.py --image_path=dataset/test.jpg
+            </div>
+            <div class="card" style="margin-top: 0.5rem;"><i class="fas fa-robot"></i> <strong>AI辅助开发实践</strong>：借助DeepSeek、豆包等工具完成代码理解、环境配置与调试，大幅提升效率。</div>
+        </div>
+    </div>
+
+    <!-- 新幻灯片12: 开发板环境搭建 -->
+    <div class="slide" id="slide12">
+        <div class="slide-content">
+            <h2><i class="fas fa-laptop-code"></i> 开发板部署 · 环境搭建</h2>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📁 新建用户 & 环境</h3>
+                    <div class="code-block" style="font-size:0.75rem;">
+                        ssh root@192.168.137.100<br>
+                        adduser --home /home/gdv2 --shell /bin/bash gdv2<br>
+                        adduser gdv2 sudo<br>
+                        su - gdv2<br>
+                        conda create -n mface python=3.9<br>
+                        conda activate mface<br>
+                        pip install opencv-python torch torchvision ...
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>🌐 连接外网</h3>
+                    <p>• 共享PC网络（Windows网络共享）<br>
+                    • 或插入可上网网线至下方网口（DHCP自动获取）<br>
+                    • 执行 <code>ifconfig | grep 172</code> 验证连网成功</p>
+                </div>
+            </div>
+            <div class="code-block">
+                # 克隆项目并修改推理结果保存方式（SSH无法弹窗）<br>
+                git clone git@gitee.com:yeyupiaoling/Pytorch-MobileFaceNet.git<br>
+                # 修改 infer.py 中 draw_face 为保存文件<br>
+                python3 infer.py --image_path=dataset/test.jpg
+            </div>
+        </div>
+    </div>
+
+    <!-- 新幻灯片13: 人脸识别完整体验 -->
+    <div class="slide" id="slide13">
+        <div class="slide-content">
+            <h2><i class="fas fa-camera-retro"></i> 完整体验 & 自定义拓展</h2>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>✅ 验证识别</h3>
+                    <p>• 在 face_db/ 添加目标人脸（如“张三.jpg”）<br>
+                    • 准备测试图片 dataset/test_zhang.jpg<br>
+                    • 运行推理，输出识别结果<br>
+                    • 测试不在库内的人脸 → 输出 unknown</p>
+                </div>
+                <div class="card">
+                    <h3>🔧 拓展任务</h3>
+                    <p>• 接入USB摄像头实现实时识别<br>
+                    • 增加语音播报功能<br>
+                    • 结合机械臂完成人脸跟随<br>
+                    • 转换为NPU推理（AscendCL）</p>
+                </div>
+            </div>
+            <div class="credit-warning">
+                <i class="fas fa-tachometer-alt"></i> 当前使用CPU推理，下一步挑战：调用NPU加速！
+            </div>
+        </div>
+    </div>
+
+    <!-- 新幻灯片14: NPU推理进阶指引 -->
+    <div class="slide" id="slide14">
+        <div class="slide-content">
+            <h2><i class="fas fa-microchip"></i> 进阶：使用 NPU 推理</h2>
+            <p>将模型转换为om格式，通过AscendCL调用开发板NPU算力，显著提升推理速度。</p>
+            <div class="spec-grid">
+                <div class="spec-item"><i class="fas fa-exchange-alt"></i> 模型转换<br>pth → onnx → om<br>ATC工具</div>
+                <div class="spec-item"><i class="fas fa-code"></i> AscendCL接口<br>Python/C++ 样例参考</div>
+                <div class="spec-item"><i class="fas fa-chart-line"></i> 性能提升<br>NPU并行计算<br>低功耗高吞吐</div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-book-open"></i> 学习资源</h3>
+                <p>• 昇腾样例代码 (inference/python 目录)<br>
+                • AscendCL应用开发入门 官方文档<br>
+                • 大赛网站技术专栏：<a href="https://aix26.gdvzz.com/" target="_blank" class="link-mock">aix26.gdvzz.com</a></p>
+            </div>
+            <div class="footer-note" style="margin-top: 0.8rem;">鼓励参赛队伍基于昇腾/鲲鹏开发板深度优化，发挥NPU极致算力！</div>
+        </div>
+    </div>
+
+    <!-- 幻灯片15: 结语页 (原第12页变为15) -->
+    <div class="slide" id="slide15">
+        <div class="slide-content" style="text-align: center;">
+            <i class="fas fa-fire" style="font-size: 3rem; color: #ff9f4a; margin-bottom: 1rem;"></i>
+            <h2 style="border-left: none;">即刻出发，定义AI新可能</h2>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 1rem auto;">无论技术深耕还是跨界探索，AI+X 将见证你的创造力。<br>前沿开发板已就位，导师团队全程支持，只等你来组队挑战！</p>
+            <div style="background: rgba(10,132,255,0.12); border-radius: 2rem; padding: 1rem; margin: 1.2rem auto; width: fit-content;">
+                <i class="fas fa-users"></i> 组队人数 ≤3人 | 报名截止 4月中旬 | 加群锁定席位
+            </div>
+            <div class="icon-text justify-content-center" style="justify-content: center; gap: 1.5rem;">
+                <span><i class="fab fa-qq"></i> QQ群：1021629279</span>
+                <span><i class="fas fa-chalkboard"></i> 启动会：3月中旬</span>
+            </div>
+            <div class="footer-note" style="margin-top: 2rem;">
+                人工智能与计算机学院(软件学院) · 2026年3月<br>
+                用AI点燃创新之火，交叉融合探索无限可能
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-indicator" id="pageIndicator">1 / 15</div>
+<div class="btn-nav">
+    <div class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+    <div class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+
+    function updateActive() {
+        slides.forEach((slide, idx) => {
+            if (idx === current) slide.classList.add('active');
+            else slide.classList.remove('active');
+        });
+        document.getElementById('pageIndicator').innerText = (current + 1) + ' / ' + total;
+    }
+
+    function next() { current = (current + 1) % total; updateActive(); }
+    function prev() { current = (current - 1 + total) % total; updateActive(); }
+
+    document.getElementById('nextBtn').addEventListener('click', next);
+    document.getElementById('prevBtn').addEventListener('click', prev);
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { next(); e.preventDefault(); }
+        else if (e.key === 'ArrowLeft') { prev(); e.preventDefault(); }
+    });
+
+    let touchX = 0;
+    document.body.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; });
+    document.body.addEventListener('touchend', (e) => {
+        const diff = e.changedTouches[0].screenX - touchX;
+        if (diff < -40) next();
+        if (diff > 40) prev();
+    });
+    updateActive();
+</script>
+</body>
+</html>
