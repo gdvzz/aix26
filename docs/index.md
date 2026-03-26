@@ -11,7 +11,8 @@ layout: default
 ## 公告
 
 - [2026 AI+X 大赛方案↗](post.md)
-- 启动会-260325：[宣讲材料↗](kickoff-260325.html)，[宣讲录像↗](https://pan.jiangnan.edu.cn/link/AAA15B9214983E42E0A134A9E023334B3F)
+- 启动会260325：[宣讲材料↗](kickoff-260325.html)，[宣讲录像↗](https://pan.jiangnan.edu.cn/link/AAA15B9214983E42E0A134A9E023334B3F)
+- [一些建议 Q&A↗](faq.md)
 
 ## AI开发板简介
 
