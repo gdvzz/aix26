@@ -4,7 +4,7 @@ layout: default
 
 # 2026 AI+X 大赛
 
-`更新-260326` \| `发布-260309`
+`更新-260401` \| `发布-260309`
 
 欢迎访问 **2026 AI+X 大赛** 主页。
 
@@ -18,7 +18,7 @@ layout: default
 ## AI开发板简介
 
 - 华为开发者套件简介：[链接↗](./ug/huawei-dk-200idka2.md)
-- 英伟达 Jetson 开发板简介（待补充）
+- 英伟达 Jetson 开发板简介：[链接↗](https://tnt.gdvzz.com/aikit/)（持续刷新）
 
 ## 学习笔记
 
